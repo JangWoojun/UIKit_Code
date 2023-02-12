@@ -2,133 +2,150 @@ import UIKit
 
 class MainView: UIView {
     
-    let mainLabel: UILabel = {
+    let selectLabel: UILabel = {
         let tv = UILabel()
         tv.text = "선택하세요"
+        tv.font = .boldSystemFont(ofSize: 22)
         tv.textColor = .black
-        tv.font = .boldSystemFont(ofSize: 28)
-        
-        return tv
-    }()
-    
-    let aiMainLabel: UILabel = {
-        let tv = UILabel()
-        tv.text = "컴퓨터의 선택"
         tv.textAlignment = .center
-        tv.textColor = .black
-        tv.font = .boldSystemFont(ofSize: 20)
+        tv.backgroundColor = .white
         
         return tv
     }()
     
-    let aiImageView: UIImageView = {
-        let img = UIImageView()
-        img.image = #imageLiteral(resourceName: "ready")
-        
-        return img
-    }()
-    
-    let aiSubLabel: UILabel = {
+    let countLabel: UILabel = {
         let tv = UILabel()
-        tv.textAlignment = .center
-        tv.text = "준비"
+        tv.font = .boldSystemFont(ofSize: 22)
         tv.textColor = .black
-        tv.font = .boldSystemFont(ofSize: 20)
-        
+        tv.textAlignment = .center
+        tv.backgroundColor = .white
+
         return tv
     }()
     
-    lazy var aiStackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [aiMainLabel, aiImageView, aiSubLabel])
-        st.spacing = 20
+    lazy var stackView: UIStackView = {
+        let st = UIStackView(arrangedSubviews: [selectLabel, countLabel])
+        st.spacing = 15
         st.axis = .vertical
-        st.distribution = .fill
+        st.distribution = .fillEqually
         st.alignment = .fill
-        
+                    
         return st
     }()
     
-    let myMainLabel: UILabel = {
-        let tv = UILabel()
-        tv.text = "나의 선택"
-        tv.textAlignment = .center
-        tv.textColor = .black
-        tv.font = .boldSystemFont(ofSize: 20)
+    lazy var gameView: UIView = {
+        let gv = UIView()
+        gv.addSubview(stackView)
+        gv.backgroundColor = .systemBlue
         
-        return tv
+        return gv
     }()
     
-    let myImageView: UIImageView = {
-        let img = UIImageView()
-        img.image = #imageLiteral(resourceName: "ready")
+    let button1: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("1", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
         
-        return img
+        return bt
+    }()
+    let button2: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("2", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button3: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("3", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button4: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("4", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button5: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("5", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button6: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("6", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button7: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("7", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button8: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("8", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button9: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("9", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
+    }()
+    let button10: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("10", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.backgroundColor = .systemGreen
+        
+        return bt
     }()
     
-    let mySubLabel: UILabel = {
-        let tv = UILabel()
-        tv.textAlignment = .center
-        tv.text = "준비"
-        tv.textColor = .black
-        tv.font = .boldSystemFont(ofSize: 20)
-        
-        return tv
-    }()
-    
-    lazy var myStackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [myMainLabel, myImageView, mySubLabel])
-        st.spacing = 20
-        st.axis = .vertical
-        st.distribution = .fill
-        st.alignment = .fill
-        
-        return st
-    }()
-    
-    lazy var mainStack: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [aiStackView, myStackView])
-        st.spacing = 20
+    lazy var buttonStack1: UIStackView = {
+        let st = UIStackView(arrangedSubviews: [button1, button2, button3, button4, button5])
+        st.spacing = 10
         st.axis = .horizontal
         st.distribution = .fillEqually
-        st.alignment = .center
+        st.alignment = .fill
         
         return st
     }()
     
-    let sButton: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("가위", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        bt.titleLabel?.font = .boldSystemFont(ofSize: 20)
-
-        return bt
-    }()
-    
-    let rButton: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("바위", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        bt.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        
-        return bt
-    }()
-    
-    let pButton: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("보", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        bt.titleLabel?.font = .boldSystemFont(ofSize: 20)
-
-        return bt
-    }()
-    
-    lazy var rpsStack: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [sButton, rButton, pButton])
-        st.spacing = 20
+    lazy var buttonStack2: UIStackView = {
+        let st = UIStackView(arrangedSubviews: [button6, button7, button8, button9, button10])
+        st.spacing = 10
         st.axis = .horizontal
+        st.distribution = .fillEqually
+        st.alignment = .fill
+        
+        return st
+    }()
+    
+    lazy var mainButtonStack: UIStackView = {
+        let st = UIStackView(arrangedSubviews: [buttonStack1, buttonStack2])
+        st.spacing = 10
+        st.axis = .vertical
         st.distribution = .fillEqually
         st.alignment = .fill
         
@@ -137,9 +154,9 @@ class MainView: UIView {
     
     let resetButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setTitle("초기화", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
         bt.backgroundColor = .systemPurple
+        bt.setTitleColor(.white, for: .normal)
+        bt.setTitle("초기화", for: .normal)
         bt.titleLabel?.font = .boldSystemFont(ofSize: 18)
 
         return bt
@@ -147,21 +164,21 @@ class MainView: UIView {
     
     let selectButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setTitle("선택", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
         bt.backgroundColor = .systemBlue
+        bt.setTitleColor(.white, for: .normal)
+        bt.setTitle("선택", for: .normal)
         bt.titleLabel?.font = .boldSystemFont(ofSize: 18)
         
         return bt
     }()
     
-    lazy var  mainButtonStackView: UIStackView = {
+    lazy var choiceStackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [resetButton, selectButton])
         st.spacing = 20
         st.axis = .horizontal
         st.distribution = .fillEqually
         st.alignment = .fill
-        
+                    
         return st
     }()
     
@@ -177,52 +194,42 @@ class MainView: UIView {
     }
     
     func setUI() {
-        self.addSubview(mainLabel)
-        self.addSubview(rpsStack)
-        self.addSubview(mainStack)
-        self.addSubview(mainButtonStackView)
         self.backgroundColor = .white
+        self.addSubview(gameView)
+        self.addSubview(mainButtonStack)
+        self.addSubview(choiceStackView)
     }
     func setConstraints() {
-        aiImageView.translatesAutoresizingMaskIntoConstraints = false
-        myImageView.translatesAutoresizingMaskIntoConstraints = false
-        rButton.translatesAutoresizingMaskIntoConstraints = false
-        pButton.translatesAutoresizingMaskIntoConstraints = false
-        sButton.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        gameView.translatesAutoresizingMaskIntoConstraints = false
+        mainButtonStack.translatesAutoresizingMaskIntoConstraints = false
+        choiceStackView.translatesAutoresizingMaskIntoConstraints = false
         selectButton.translatesAutoresizingMaskIntoConstraints = false
-        resetButton.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainStack.translatesAutoresizingMaskIntoConstraints = false
-        rpsStack.translatesAutoresizingMaskIntoConstraints = false
-        mainButtonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            aiImageView.heightAnchor.constraint(equalTo: aiImageView.widthAnchor, multiplier: 1),
-            myImageView.heightAnchor.constraint(equalTo: myImageView.widthAnchor, multiplier: 1),
             
-            rButton.heightAnchor.constraint(equalTo: rButton.widthAnchor, multiplier: 1),
-            pButton.heightAnchor.constraint(equalTo: pButton.widthAnchor, multiplier: 1),
-            sButton.heightAnchor.constraint(equalTo: sButton.widthAnchor, multiplier: 1),
+            stackView.topAnchor.constraint(equalTo: gameView.topAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: gameView.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo:gameView.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: gameView.bottomAnchor, constant: -20),
             
-            resetButton.heightAnchor.constraint(equalToConstant: 45),
+            gameView.topAnchor.constraint(equalTo: self.topAnchor, constant: 150),
+            gameView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            gameView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            gameView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            gameView.heightAnchor.constraint(equalToConstant: 160),
+            
+            button1.heightAnchor.constraint(equalTo: button1.widthAnchor, multiplier: 1),
+               
+            mainButtonStack.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 80),
+            mainButtonStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            mainButtonStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            
             selectButton.heightAnchor.constraint(equalToConstant: 45),
-            
-            mainLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 70),
-            mainLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            mainStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            mainStack.topAnchor.constraint(equalTo: mainLabel.topAnchor, constant: 80),
-            mainStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            mainStack.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30),
-            mainStack.bottomAnchor.constraint(equalTo: rpsStack.topAnchor, constant: -50),
-            
-            rpsStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            rpsStack.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30),
-            
-            mainButtonStackView.topAnchor.constraint(equalTo: rpsStack.bottomAnchor, constant: 60),
-            mainButtonStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            mainButtonStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30),
-            mainButtonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -150)
-           
+                
+            choiceStackView.topAnchor.constraint(equalTo: mainButtonStack.bottomAnchor, constant: 50),
+            choiceStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            choiceStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+        
         ])
     }
     
