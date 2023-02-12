@@ -3,6 +3,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private let mainView = MainView()
+    private let diceManager = DiceManager()
     
     override func loadView() {
         view = mainView
@@ -10,27 +11,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectButton()
+        buttonTapped()
     }
 
-    func selectButton() {
-        mainView.selectButton.addTarget(self, action: #selector(changeUI), for: .touchUpInside)
+    func buttonTapped() {
+        mainView.rollButton.addTarget(self, action: #selector(someThing), for: .touchUpInside)
     }
     
-    @objc func changeUI() {
-        if mainView.backgroundColor == .white {
-            mainView.backgroundColor = .black
-            mainView.textLabel.text = "반갑습니다"
-            mainView.textLabel.textColor = .white
-            mainView.selectButton.backgroundColor = .white
-            mainView.selectButton.setTitleColor(.black, for: .normal)
-        } else {
-            mainView.backgroundColor = .white
-            mainView.textLabel.text = "안녕하세요"
-            mainView.textLabel.textColor = .black
-            mainView.selectButton.backgroundColor = .black
-            mainView.selectButton.setTitleColor(.white, for: .normal)
-        }
+    @objc func someThing() {
+        mainView.diceImageView1.image = diceManager.getRandomDice()
+        mainView.diceImageView2.image = diceManager.getRandomDice()
     }
 
 }
