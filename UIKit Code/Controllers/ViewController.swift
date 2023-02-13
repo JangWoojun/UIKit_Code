@@ -1,11 +1,11 @@
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController {
-
-    private let mainView = MainView()
-    private let upDownmanager = UPDownManager()
+final class ViewController: UIViewController {
     
-    var chk = 0
+    private let mainView = MainView()
+    weak var timer: Timer?
+    var num = 0
     
     override func loadView() {
         view = mainView
@@ -14,37 +14,48 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonTapped()
+        slide()
     }
-
+    
     func buttonTapped() {
-        mainView.selectButton.addTarget(self, action: #selector(someThing), for: .touchUpInside)
-        mainView.button1.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button2.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button3.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button4.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button5.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button6.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button7.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button8.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button9.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.button10.addTarget(self, action: #selector(something), for: .touchUpInside)
-        mainView.resetButton.addTarget(self, action: #selector(Something), for: .touchUpInside)
+        mainView.startButton.addTarget(self, action: #selector(something), for: .touchUpInside)
     }
     
-    @objc func someThing() {
-        let chkText = upDownmanager.chkCount(chk: chk)
-        mainView.countLabel.text = String(chk)
-        mainView.selectLabel.text = chkText
+    func slide() {
+        mainView.slider.addTarget(self, action: #selector(someThing), for: .valueChanged)
     }
     
-    @objc func something(a: UIButton) {
-        chk = Int((a.titleLabel?.text)!)!
+    @objc func someThing(sender: UISlider) {
+        num = Int(sender.value * 60)
+        mainView.mainLabel.text = "\(num)초"
+        
+        if num == 0 {
+            mainView.startButton.isEnabled = false
+        } else {
+            mainView.startButton.isEnabled = true
+        }
+    }
+    @objc func something(sender: UISlider) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [self] _ in
+            if num > 0 {
+                num -= 1
+                mainView.slider.setValue(Float(num) / 60.0, animated: true)
+                mainView.mainLabel.text = "\(num)초"
+            } else {
+                timer?.invalidate()
+                AudioServicesPlayAlertSound(SystemSoundID(1322))
+                mainView.mainLabel.text = "종료"
+                mainView.startButton.isEnabled = false
+            }
+        })
     }
     
-    @objc func Something(a: UIButton) {
-        upDownmanager.reset()
-        mainView.countLabel.text = ""
-        mainView.selectLabel.text = "선택하세요"
+    func resetButtonTapped(_ sender: UIButton) {
+        mainView.mainLabel.text = "초를 선택하세요"
+        mainView.slider.setValue(0.5, animated: true)
+        timer?.invalidate()
+        num = 0
     }
 }
 

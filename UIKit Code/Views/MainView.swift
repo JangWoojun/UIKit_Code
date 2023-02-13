@@ -2,151 +2,82 @@ import UIKit
 
 class MainView: UIView {
     
-    let selectLabel: UILabel = {
+    let titleLabel: UILabel = {
         let tv = UILabel()
-        tv.text = "선택하세요"
-        tv.font = .boldSystemFont(ofSize: 22)
+        tv.text = "타이머"
+        tv.font = .boldSystemFont(ofSize: 20)
         tv.textColor = .black
         tv.textAlignment = .center
-        tv.backgroundColor = .white
         
         return tv
     }()
     
-    let countLabel: UILabel = {
+    let line1: UIView = {
+        let v = UIView()
+        v.backgroundColor = .systemGray4
+        
+        return v
+    }()
+    
+    let mainLabel: UILabel = {
         let tv = UILabel()
-        tv.font = .boldSystemFont(ofSize: 22)
+        tv.text = "초를 선택하세요"
+        tv.font = .boldSystemFont(ofSize: 26)
         tv.textColor = .black
         tv.textAlignment = .center
-        tv.backgroundColor = .white
-
+        
         return tv
+    }()
+    
+    let zeroLabel: UILabel = {
+        let tv = UILabel()
+        tv.text = "0초"
+        tv.font = .systemFont(ofSize: 20)
+        tv.textColor = .black
+        tv.textAlignment = .center
+        
+        return tv
+    }()
+    
+    let slider: UISlider = {
+        let sd = UISlider()
+        sd.setValue(0.5, animated: true)
+        
+        return sd
+    }()
+    
+    let sixtyLabel: UILabel = {
+        let tv = UILabel()
+        tv.text = "60초"
+        tv.font = .systemFont(ofSize: 20)
+        tv.textColor = .black
+        tv.textAlignment = .center
+        
+        return tv
+    }()
+    
+    lazy var mainStackView: UIStackView = {
+        let st = UIStackView(arrangedSubviews: [zeroLabel, slider, sixtyLabel])
+        st.spacing = 10
+        st.axis = .horizontal
+        st.distribution = .fill
+        st.alignment = .fill
+        
+        return st
+    }()
+    
+    let line2: UIView = {
+        let v = UIView()
+        v.backgroundColor = .systemGray4
+        
+        return v
     }()
     
     lazy var stackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [selectLabel, countLabel])
-        st.spacing = 15
+        let st = UIStackView(arrangedSubviews: [titleLabel,line1,mainLabel,mainStackView,line2])
+        st.spacing = 20
         st.axis = .vertical
-        st.distribution = .fillEqually
-        st.alignment = .fill
-                    
-        return st
-    }()
-    
-    lazy var gameView: UIView = {
-        let gv = UIView()
-        gv.addSubview(stackView)
-        gv.backgroundColor = .systemBlue
-        
-        return gv
-    }()
-    
-    let button1: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("1", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button2: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("2", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button3: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("3", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button4: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("4", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button5: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("5", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button6: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("6", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button7: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("7", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button8: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("8", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button9: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("9", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    let button10: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.setTitle("10", for: .normal)
-        bt.setTitleColor(.white, for: .normal)
-        bt.backgroundColor = .systemGreen
-        
-        return bt
-    }()
-    
-    lazy var buttonStack1: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [button1, button2, button3, button4, button5])
-        st.spacing = 10
-        st.axis = .horizontal
-        st.distribution = .fillEqually
-        st.alignment = .fill
-        
-        return st
-    }()
-    
-    lazy var buttonStack2: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [button6, button7, button8, button9, button10])
-        st.spacing = 10
-        st.axis = .horizontal
-        st.distribution = .fillEqually
-        st.alignment = .fill
-        
-        return st
-    }()
-    
-    lazy var mainButtonStack: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [buttonStack1, buttonStack2])
-        st.spacing = 10
-        st.axis = .vertical
-        st.distribution = .fillEqually
+        st.distribution = .fill
         st.alignment = .fill
         
         return st
@@ -154,31 +85,33 @@ class MainView: UIView {
     
     let resetButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.backgroundColor = .systemPurple
+        bt.setTitle("RESET", for: .normal)
         bt.setTitleColor(.white, for: .normal)
-        bt.setTitle("초기화", for: .normal)
-        bt.titleLabel?.font = .boldSystemFont(ofSize: 18)
-
-        return bt
-    }()
-    
-    let selectButton: UIButton = {
-        let bt = UIButton(type: .system)
-        bt.backgroundColor = .systemBlue
-        bt.setTitleColor(.white, for: .normal)
-        bt.setTitle("선택", for: .normal)
-        bt.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        bt.titleLabel?.font = .boldSystemFont(ofSize: 22)
+        bt.backgroundColor = .systemGreen
+        bt.layer.cornerRadius = 10
         
         return bt
     }()
     
-    lazy var choiceStackView: UIStackView = {
-        let st = UIStackView(arrangedSubviews: [resetButton, selectButton])
-        st.spacing = 20
+    let startButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("START", for: .normal)
+        bt.setTitleColor(.white, for: .normal)
+        bt.titleLabel?.font = .boldSystemFont(ofSize: 22)
+        bt.backgroundColor = .systemBlue
+        bt.layer.cornerRadius = 10
+        
+        return bt
+    }()
+    
+    lazy var buttonStackView: UIStackView = {
+        let st = UIStackView(arrangedSubviews: [resetButton, startButton])
+        st.spacing = 15
         st.axis = .horizontal
         st.distribution = .fillEqually
         st.alignment = .fill
-                    
+        
         return st
     }()
     
@@ -195,41 +128,35 @@ class MainView: UIView {
     
     func setUI() {
         self.backgroundColor = .white
-        self.addSubview(gameView)
-        self.addSubview(mainButtonStack)
-        self.addSubview(choiceStackView)
+        self.addSubview(stackView)
+        self.addSubview(buttonStackView)
     }
     func setConstraints() {
+        line1.translatesAutoresizingMaskIntoConstraints = false
+        line2.translatesAutoresizingMaskIntoConstraints = false
+        mainLabel.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        gameView.translatesAutoresizingMaskIntoConstraints = false
-        mainButtonStack.translatesAutoresizingMaskIntoConstraints = false
-        choiceStackView.translatesAutoresizingMaskIntoConstraints = false
-        selectButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            line1.heightAnchor.constraint(equalToConstant: 1),
+            line2.heightAnchor.constraint(equalToConstant: 1),
             
-            stackView.topAnchor.constraint(equalTo: gameView.topAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: gameView.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo:gameView.trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: gameView.bottomAnchor, constant: -20),
+            mainLabel.heightAnchor.constraint(equalToConstant: 70),
             
-            gameView.topAnchor.constraint(equalTo: self.topAnchor, constant: 150),
-            gameView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            gameView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            gameView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            gameView.heightAnchor.constraint(equalToConstant: 160),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 130),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            stackView.heightAnchor.constraint(equalToConstant: 200),
             
-            button1.heightAnchor.constraint(equalTo: button1.widthAnchor, multiplier: 1),
-               
-            mainButtonStack.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 80),
-            mainButtonStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            mainButtonStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            resetButton.heightAnchor.constraint(equalToConstant: 50),
+            startButton.heightAnchor.constraint(equalToConstant: 50),
             
-            selectButton.heightAnchor.constraint(equalToConstant: 45),
-                
-            choiceStackView.topAnchor.constraint(equalTo: mainButtonStack.bottomAnchor, constant: 50),
-            choiceStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            choiceStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
-        
+            buttonStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            buttonStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+            
         ])
     }
     
