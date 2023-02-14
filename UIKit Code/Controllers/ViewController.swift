@@ -1,5 +1,4 @@
 import UIKit
-import AVFoundation
 
 final class ViewController: UIViewController {
     
@@ -11,72 +10,107 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.textField.delegate = self
+        mainView.idTextField.delegate = self
+        mainView.passwordTextField.delegate = self
         buttonTapped()
     }
     
     func buttonTapped() {
-        mainView.doneButton.addTarget(self, action: #selector(someThing), for: .touchUpInside)
+        mainView.rePasswordButton.addTarget(self, action: #selector(doAlert), for: .touchUpInside)
+        mainView.passwordButton.addTarget(self, action: #selector(passwordButtonTapped), for: .touchUpInside)
+        mainView.idTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+        mainView.passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
     }
     
+    @objc func doAlert() {
+        let ar = UIAlertController(title: "비밀번호 바꾸기", message: "비밀번호를 바꾸시겠습니까?", preferredStyle: .alert)
+        let success = UIAlertAction(title: "확인", style: .default)
+        let cancel = UIAlertAction(title: "취소", style: .default)
+        
+        ar.addAction(success)
+        ar.addAction(cancel)
+        
+        present(ar, animated: true)
+    }
+    
+    @objc func passwordButtonTapped() {
+        mainView.passwordTextField.isSecureTextEntry.toggle()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
     
 }
 
 extension ViewController: UITextFieldDelegate {
-    @objc func someThing() {
-        mainView.textField.resignFirstResponder() // 응답 객체를 사임
-    }
     
-    // 텍스트 필트 입력을 허락할건지 여부
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print(#function)
-        return true
-    }
-    
-    // 입력을 시작한 시점
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print(#function)
-        view.backgroundColor = .black
+        if textField == mainView.idTextField {
+            mainView.idInputView.backgroundColor = #colorLiteral(red: 0.2972877622, green: 0.2973434925, blue: 0.297280401, alpha: 1)
+            mainView.idLabel.font = UIFont.systemFont(ofSize: 11)
+            mainView.emailInfoLabelCenterYConstraint.constant = -13
+        }
+        
+        if textField == mainView.passwordTextField {
+            mainView.passwordInputView.backgroundColor = #colorLiteral(red: 0.2972877622, green: 0.2973434925, blue: 0.297280401, alpha: 1)
+            mainView.passwordLabel.font = UIFont.systemFont(ofSize: 11)
+            mainView.passwordInfoLabelCenterYConstraint.constant = -13
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.mainView.stackView.layoutIfNeeded()
+        }
+        
     }
     
-    // 클리어 버튼 허락 여부
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        print(#function)
-        return true
-    }
-    
-    // 텍스트 필드내에서 내용이 변경될 때마다 호출됨 (허락할 지 여부)
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print(#function)
-        if (textField.text?.count)! + string.count > 10 {
-            return false
-        } else {
-            return true
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == mainView.idTextField {
+            
+            mainView.idInputView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+            
+            if mainView.idTextField.text == "" {
+                mainView.idLabel.font = UIFont.systemFont(ofSize: 18)
+                mainView.emailInfoLabelCenterYConstraint.constant = 0
+            }
+        }
+        if textField == mainView.passwordTextField {
+            
+            mainView.passwordInputView.backgroundColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+            
+            if mainView.passwordTextField.text == "" {
+                mainView.passwordLabel.font = UIFont.systemFont(ofSize: 18)
+                mainView.passwordInfoLabelCenterYConstraint.constant = 0
+            }
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.mainView.stackView.layoutIfNeeded()
         }
     }
     
-    // 엔터키가 눌러졌을 때 다음동작을 허락할 것인지
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print(#function)
-        view.backgroundColor = .opaqueSeparator
+        textField.resignFirstResponder()
         return true
     }
     
-    // 텍스트 필드에 입력이 끝날 때 호출되어서 허락 여부를 판단
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print(#function)
-        return true
-    }
-    
-    // 텍스트 필드에 입력이 실제 끝났을 때 호출
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print(#function)
-        view.backgroundColor = .white
-    }
-    
-    // 다른 곳 터치 시 키보드 종료
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-        // textField.resignFirstResponder()
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+        guard
+            let email = mainView.idTextField.text, !email.isEmpty,
+            let password = mainView.passwordTextField.text, !password.isEmpty
+        else {
+            mainView.loginButton.backgroundColor = .clear
+            mainView.loginButton.isEnabled = false
+            return
+        }
+        mainView.loginButton.backgroundColor = .red
+        mainView.loginButton.isEnabled = true
     }
 }
