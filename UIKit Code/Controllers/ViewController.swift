@@ -3,7 +3,6 @@ import UIKit
 final class ViewController: UIViewController {
     
     private let mainView = MainView()
-    private var bmiManager = BMICalculatorManager()
     override func loadView() {
         view = mainView
     }
@@ -17,21 +16,25 @@ final class ViewController: UIViewController {
     }
     
     func buttonTapped() {
-        mainView.selectButton.addTarget(self, action: #selector(moveNextView), for: .touchUpInside)
+        mainView.mainButton.addTarget(self, action: #selector(moveNextView), for: .touchUpInside)
     }
     @objc func moveNextView() {
-        let nextView = NextViewController()
-        nextView.modalPresentationStyle = .fullScreen
+        let tabBarVC = UITabBarController()
         
-        if let height = Double(mainView.heightTextField.text!), let weight = Double(mainView.weightTextField.text!) {
-            
-            nextView.bmi = bmiManager.returnBMI(weight: weight, height: height)
-                        
-            mainView.weightTextField.text = ""
-            mainView.heightTextField.text = ""
-            
-            present(nextView, animated: true)
-        }
+        let vc1 = UINavigationController(rootViewController: ViewController1())
+        let vc2 = ViewController2()
         
+        vc1.title = "red"
+        vc2.title = "blue"
+        
+        tabBarVC.setViewControllers([vc1, vc2], animated: true)
+        tabBarVC.modalPresentationStyle = .fullScreen
+        tabBarVC.tabBar.backgroundColor = .white
+        
+        guard let items = tabBarVC.tabBar.items else { return }
+        items[0].image = UIImage(systemName: "note")
+        items[1].image = UIImage(systemName: "doc")
+        
+        present(tabBarVC, animated: true)
     }
 }
