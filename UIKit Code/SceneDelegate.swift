@@ -19,26 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //        guard let _ = (scene as? UIWindowScene) else { return }
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-
         window = UIWindow(windowScene: windowScene)
 
-        let tabBarVC = UITabBarController()
-            
-        let vc1 = UINavigationController(rootViewController: ViewController1())
-        let vc2 = ViewController2()
+        let naviVC = UINavigationController(rootViewController: ViewController())
 
-        vc1.title = "제목"
-        vc2.title = "제목"
-
-        tabBarVC.setViewControllers([vc1, vc2], animated: true)
-        tabBarVC.modalPresentationStyle = .fullScreen
-        tabBarVC.tabBar.backgroundColor = .white
-
-        guard let items = tabBarVC.tabBar.items else { return }
-        items[0].image = UIImage(systemName: "이미지")
-        items[1].image = UIImage(systemName: "이미지")
-
-        window?.rootViewController = tabBarVC
+        window?.rootViewController = naviVC
         window?.makeKeyAndVisible()
     }
     
